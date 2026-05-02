@@ -1,0 +1,26 @@
+version: '3.7'
+services:
+  {{ pgadmin_service_name }}:
+    image: {{ pgadmin_image }}
+    container_name: {{ pgadmin_container_name }}
+    restart: unless-stopped
+    environment:
+      PGADMIN_DEFAULT_EMAIL: {{ pgadmin_default_email }}
+      PGADMIN_DEFAULT_PASSWORD: {{ pgadmin_default_password }}
+    ports:
+      - "{{ pgadmin_port }}:80"
+    networks:
+      - {{ pgadmin_network }}
+    volumes:
+      - {{ pgadmin_volume }}:/var/lib/pgadmin
+
+networks:
+  {{ pgadmin_network }}:
+
+volumes:
+  {{ pgadmin_volume }}:
+    driver: local
+    driver_opts:
+      type: none
+      device: {{ pgadmin_volume_host_path }}
+      o: bind

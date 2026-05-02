@@ -1,0 +1,23 @@
+version: '3.7'
+services:
+  {{ odoo_service_name }}:
+    image: {{ odoo_image }}
+    container_name: {{ odoo_container_name }}
+    restart: unless-stopped
+    ports:
+      - "{{ odoo_port }}:8069"
+    networks:
+      - {{ odoo_network }}
+    volumes:
+      - {{ odoo_volume }}:/var/lib/odoo/data
+
+networks:
+  {{ odoo_network }}:
+
+volumes:
+  {{ odoo_volume }}:
+    driver: local
+    driver_opts:
+      type: none
+      device: {{ odoo_volume_host_path }}
+      o: bind

@@ -1,0 +1,11 @@
+---
+# defaults for pgadmin_role
+pgadmin_image: "dpage/pgadmin4:6.18"
+pgadmin_network: "pgadmin_net"
+pgadmin_volume: "pgadmin_data"
+pgadmin_volume_host_path: "/opt/pgadmin/data"
+pgadmin_service_name: "pgadmin"
+pgadmin_container_name: "pgadmin_container"
+pgadmin_port: 80
+pgadmin_default_email: "admin@local"
+pgadmin_default_password: "admin"
