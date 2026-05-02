@@ -9,7 +9,7 @@
       <configVersion>2</configVersion>
       <userRemoteConfigs>
         <hudson.plugins.git.UserRemoteConfig>
-          <url>https://github.com/eazytraining/projet-fils-rouge.git</url>
+          <url>https://github.com/kadybah199-devops/projet-fils-rouge.git</url>
           <!-- add <credentialsId>github-creds</credentialsId> if needed -->
         </hudson.plugins.git.UserRemoteConfig>
       </userRemoteConfigs>
