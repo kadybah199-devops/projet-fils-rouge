@@ -70,7 +70,7 @@ pipeline {
       steps {
         script {
           // compute new patch version
-          def cur = sh(script: "awk 'NR==3{print \$2}' releases.txt", returnStdout: true).trim()
+          def cur = sh(script: "awk 'NR==3{print \\$2}' releases.txt", returnStdout: true).trim()
           echo "Current version: ${cur}"
           def parts = cur.tokenize('.')
           def major = parts[0].toInteger()
@@ -85,8 +85,13 @@ pipeline {
           sh "git add releases.txt"
           sh "git commit -m \"Bump version to ${newver}\" || echo 'no changes to commit'"
           sh "git tag -a v${newver} -m \"Release ${newver}\" || true"
-          sh "git push origin HEAD || echo 'push failed: check credentials'"
-          sh "git push origin --tags || echo 'push tags failed: check credentials'"
+
+          // Push commits and tags using GitHub token (secret text credential)
+          withCredentials([string(credentialsId: 'github-token', variable: 'GITHUB_TOKEN')]) {
+            sh "git remote set-url origin https://${GITHUB_TOKEN}@github.com/eazytraining/projet-fils-rouge.git || true"
+            sh "git push https://${GITHUB_TOKEN}@github.com/eazytraining/projet-fils-rouge.git HEAD || echo 'push failed: check credentials or permissions'"
+            sh "git push https://${GITHUB_TOKEN}@github.com/eazytraining/projet-fils-rouge.git --tags || echo 'push tags failed: check credentials or permissions'"
+          }
         }
       }
     }
