@@ -9,3 +9,4 @@ pgadmin_container_name: "pgadmin_container"
 pgadmin_port: 80
 pgadmin_default_email: "admin@local"
 pgadmin_default_password: "admin"
+pgadmin_servers_json_host_path: ""

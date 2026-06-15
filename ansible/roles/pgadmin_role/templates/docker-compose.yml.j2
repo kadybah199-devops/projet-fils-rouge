@@ -13,6 +13,9 @@ services:
       - {{ pgadmin_network }}
     volumes:
       - {{ pgadmin_volume }}:/var/lib/pgadmin
+    {% if pgadmin_servers_json_host_path %}
+      - {{ pgadmin_servers_json_host_path }}:/pgadmin4/servers.json:ro
+    {% endif %}
 
 networks:
   {{ pgadmin_network }}:
