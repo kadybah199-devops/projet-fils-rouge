@@ -66,7 +66,9 @@ docker run -d --name test-ic-webapp -p 8080:8080 \
   -e PGADMIN_URL=https://www.pgadmin.org \
   ic-webapp:1.0
 ```
-![Uploading image.png…]()
+
+<img width="1348" height="698" alt="image" src="https://github.com/user-attachments/assets/eae845ca-18ad-42e4-9350-ec685f4fb9f0" />
+
 
 Vérifier que le site vitrine est accessible :
 
