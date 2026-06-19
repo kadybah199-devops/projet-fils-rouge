@@ -123,7 +123,7 @@ Sur le Serveur 1 :
 cd jenkins-tools
 docker-compose up -d
 ```
-<img width="1360" height="714" alt="image" src="https://github.com/user-attachments/assets/087920c2-645f-421f-bb7b-33656006cbeb" />
+<img width="1345" height="450" alt="image" src="https://github.com/user-attachments/assets/05b3577e-5d59-4411-b3a8-63eee71115d0" />
 
 Jenkins sera accessible sur `http://<IP-serveur1>:8080`.
 
