@@ -93,6 +93,7 @@ docker login
 docker tag ic-webapp:1.0 kady199/ic-webapp:1.0
 docker push kady199/ic-webapp:1.0
 ```
+<img width="597" height="265" alt="3" src="https://github.com/user-attachments/assets/2a2facf6-3622-43cd-aa5f-1f3d59487be7" />
 
 ---
 
