@@ -57,6 +57,7 @@ Vérifier que l'image est bien créée :
 docker images | grep ic-webapp
 ```
 <img width="1002" height="275" alt="image" src="https://github.com/user-attachments/assets/73f9dcac-ee82-41e2-8d2b-ad57cb73e6db" />
+<img width="1266" height="677" alt="image" src="https://github.com/user-attachments/assets/fec64661-50d0-42e0-927d-c8d90c1a97de" />
 
 ### 1.4 Lancer le container de test
 
