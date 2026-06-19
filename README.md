@@ -47,6 +47,7 @@ VERSION 1.0
 ```bash
 docker build -t ic-webapp:1.0 .
 ```
+<img width="1019" height="279" alt="image" src="https://github.com/user-attachments/assets/d1b7f89e-f82f-48d4-a575-325948ea787a" />
 
 Le Dockerfile lit automatiquement `releases.txt` via `awk` pendant le build et injecte les URLs dans `/etc/profile.d/icenv.sh`.
 
@@ -55,6 +56,7 @@ Vérifier que l'image est bien créée :
 ```bash
 docker images | grep ic-webapp
 ```
+<img width="1002" height="275" alt="image" src="https://github.com/user-attachments/assets/73f9dcac-ee82-41e2-8d2b-ad57cb73e6db" />
 
 ### 1.4 Lancer le container de test
 
@@ -64,6 +66,7 @@ docker run -d --name test-ic-webapp -p 8080:8080 \
   -e PGADMIN_URL=https://www.pgadmin.org \
   ic-webapp:1.0
 ```
+![Uploading image.png…]()
 
 Vérifier que le site vitrine est accessible :
 
