@@ -1,17 +1,26 @@
-version: '2'
+
+version: '3.8'
+
 services:
   jenkins:
-    image: sadofrazer/jenkins
-    restart: always
-    ports:
-      - '8080:8080'
-      - '22000:22'
-      - '50000:50000'
+    image: jenkins/jenkins:lts
+    container_name: jenkins
+    restart: unless-stopped
     privileged: true
+    user: root
+
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+
     volumes:
-      - 'jenkins_home:/var/lib/jenkins/'
-      - '/var/run/docker.sock:/var/run/docker.sock'
-      - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
+      - jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+
+    environment:
+      - JAVA_OPTS=-Djenkins.install.runSetupWizard=true
+
 volumes:
   jenkins_home:
     driver: local
+
