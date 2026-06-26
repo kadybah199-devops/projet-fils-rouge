@@ -47,6 +47,7 @@ VERSION 1.0
 ```bash
 docker build -t ic-webapp:1.0 .
 ```
+<img width="1019" height="279" alt="image" src="https://github.com/user-attachments/assets/d1b7f89e-f82f-48d4-a575-325948ea787a" />
 
 Le Dockerfile lit automatiquement `releases.txt` via `awk` pendant le build et injecte les URLs dans `/etc/profile.d/icenv.sh`.
 
@@ -55,6 +56,8 @@ Vérifier que l'image est bien créée :
 ```bash
 docker images | grep ic-webapp
 ```
+<img width="1002" height="275" alt="image" src="https://github.com/user-attachments/assets/73f9dcac-ee82-41e2-8d2b-ad57cb73e6db" />
+<img width="1266" height="677" alt="image" src="https://github.com/user-attachments/assets/fec64661-50d0-42e0-927d-c8d90c1a97de" />
 
 ### 1.4 Lancer le container de test
 
@@ -64,6 +67,9 @@ docker run -d --name test-ic-webapp -p 8080:8080 \
   -e PGADMIN_URL=https://www.pgadmin.org \
   ic-webapp:1.0
 ```
+
+<img width="1348" height="698" alt="image" src="https://github.com/user-attachments/assets/eae845ca-18ad-42e4-9350-ec685f4fb9f0" />
+
 
 Vérifier que le site vitrine est accessible :
 
@@ -88,6 +94,7 @@ docker login
 docker tag ic-webapp:1.0 kady199/ic-webapp:1.0
 docker push kady199/ic-webapp:1.0
 ```
+<img width="597" height="265" alt="3" src="https://github.com/user-attachments/assets/2a2facf6-3622-43cd-aa5f-1f3d59487be7" />
 
 ---
 
@@ -117,6 +124,7 @@ Sur le Serveur 1 :
 cd jenkins-tools
 docker-compose up -d
 ```
+<img width="1345" height="450" alt="image" src="https://github.com/user-attachments/assets/05b3577e-5d59-4411-b3a8-63eee71115d0" />
 
 Jenkins sera accessible sur `http://<IP-serveur1>:8080`.
 
