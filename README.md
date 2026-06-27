@@ -131,7 +131,9 @@ Jenkins sera accessible sur `http://<IP-serveur1>:8080`.
 Récupérer le mot de passe initial :
 
 ```bash
-docker exec -it <container_jenkins> cat /var/lib/jenkins/secrets/initialAdminPassword
+docker ps
+docker exec -it <container_jenkins> cat /var/jenkins_home/secrets/initialAdminPassword
+
 ```
 
 Installer les plugins recommandés lors du premier démarrage.
