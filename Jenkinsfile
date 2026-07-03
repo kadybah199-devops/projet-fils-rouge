@@ -51,14 +51,15 @@ pipeline {
 
             docker run -d --name smoke-test -p 8081:8080 kady199/ic-webapp:1.0
 
-            sleep 15
+            echo "Waiting for app to start..."
 
-            for i in {1..10}; do
-              curl -fsS http://localhost:8081 && exit 0
-              echo "waiting app..."
+            for i in {1..15}; do
+              curl -fsS http://localhost:8081 && echo "OK" && exit 0
+              echo "not ready yet..."
               sleep 3
             done
 
+            echo "App failed to start"
             docker logs smoke-test
             exit 1
           '''
