@@ -42,30 +42,38 @@ pipeline {
       }
     }
 
-   stage('Smoke Test') {
+    stage('Smoke Test') {
       steps {
-        script {
-          sh '''
-            docker stop smoke-test || true
-            docker rm smoke-test || true
+          script {
+              sh '''
+                  docker stop smoke-test || true
+                  docker rm smoke-test || true
 
-            docker run -d --name smoke-test -p 8081:8080 kady199/ic-webapp:1.0
+                  docker run -d --name smoke-test -p 8081:8080 kady199/ic-webapp:1.0
 
-            echo "Waiting for app to start..."
+                  echo "Waiting for application..."
 
-            for i in {1..15}; do
-              curl -fsS http://localhost:8081 && echo "OK" && exit 0
-              echo "not ready yet..."
-              sleep 3
-            done
+                  i=0
+                  until curl -fs http://localhost:8081 >/dev/null 2>&1
+                  do
+                      i=$((i+1))
 
-            echo "App failed to start"
-            docker logs smoke-test
-            exit 1
-          '''
-        }
+                      if [ "$i" -ge 20 ]; then
+                          echo "Application failed to start"
+                          docker logs smoke-test
+                          exit 1
+                      fi
+
+                      echo "Waiting... ($i/20)"
+                      sleep 3
+                  done
+
+                  echo "Smoke test passed!"
+              '''
+          }
       }
-  }
+    }
+
     stage('Deploy with Ansible') {
       steps {
         withCredentials([file(credentialsId: 'ansible-ssh-key', variable: 'ANSIBLE_SSH_KEY')]) {
