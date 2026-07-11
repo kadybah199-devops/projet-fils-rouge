@@ -44,18 +44,20 @@ pipeline {
 
     stage('Smoke Test') {
       steps {
-        // si votre deploiement expose le port 8081 sur localhost, vous pouvez utiliser la commande suivante pour attendre que l'application soit prête
-        //until curl -fs http://localhost:8081 >/dev/null 2>&1
           script {
               sh '''
                   docker stop smoke-test || true
                   docker rm smoke-test || true
 
-                  docker run -d --name smoke-test -p 8081:8080 kady199/ic-webapp:1.0
+                  docker run -d \
+                  --name smoke-test \
+                  --network jenkins-net \
+                  kady199/ic-webapp:1.0
 
                   echo "Waiting for application..."
+
                   i=0
-                  until curl -fs -fs http://smoke-test:8080 >/dev/null 2>&1
+                  until curl -fs http://smoke-test:8080 >/dev/null 2>&1
                   do
                       i=$((i+1))
 
@@ -73,7 +75,7 @@ pipeline {
               '''
           }
       }
-    }
+   }
 
     stage('Deploy with Ansible') {
       steps {
