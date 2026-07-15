@@ -79,7 +79,7 @@ pipeline {
 
     stage('Deploy with Ansible') {
       steps {
-                  withCredentials([
+              withCredentials([
               sshUserPrivateKey(
                   credentialsId: 'ansible-ssh-key',
                   keyFileVariable: 'ANSIBLE_SSH_KEY',
@@ -96,9 +96,8 @@ pipeline {
               '''
           }
         }
-      }
     }
-
+   
     stage('Tag & Release') {
       when {
         expression { return params.BUMP_VERSION }
