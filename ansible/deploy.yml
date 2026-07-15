@@ -1,10 +1,11 @@
 ---
-name: Deploy web app, Odoo and PgAdmin
-hosts: all
-become: true
-vars:
-  web_image: "kady199/ic-webapp:1.0"
+- name: Deploy web app, Odoo and PgAdmin
+  hosts: all
+  become: true
 
-roles:
-  - { role: odoo_role }
-  - { role: pgadmin_role }
+  vars:
+    web_image: "kady199/ic-webapp:1.0"
+
+  roles:
+    - odoo_role
+    - pgadmin_role

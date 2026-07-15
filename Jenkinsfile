@@ -94,8 +94,8 @@ pipeline {
                       -e "web_image=$IMAGE version=$VERSION" \
                       ansible/deploy.yml
               '''
-          }
-        }
+            }
+      }
     }
    
     stage('Tag & Release') {
