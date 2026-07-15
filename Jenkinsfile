@@ -104,6 +104,7 @@ pipeline {
                       -u $SSH_USER \
                       --private-key=$ANSIBLE_SSH_KEY \
                       -e "web_image=$IMAGE version=$VERSION" \
+                      --ssh-common-args='-o StrictHostKeyChecking=no'
                       ansible/deploy.yml
               '''
             }
