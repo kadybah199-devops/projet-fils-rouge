@@ -79,9 +79,21 @@ pipeline {
 
     stage('Deploy with Ansible') {
       steps {
-        withCredentials([file(credentialsId: 'ansible-ssh-key', variable: 'ANSIBLE_SSH_KEY')]) {
-          script {
-            sh "ansible-playbook -i ansible/inventory.ini ansible/deploy.yml --private-key ${ANSIBLE_SSH_KEY} -e \"web_image=${env.IMAGE} version=${env.VERSION}\""
+                  withCredentials([
+              sshUserPrivateKey(
+                  credentialsId: 'ansible-ssh-key',
+                  keyFileVariable: 'ANSIBLE_SSH_KEY',
+                  usernameVariable: 'SSH_USER'
+              )
+          ]) {
+              sh '''
+                  ansible-playbook \
+                      -i ansible/inventory.ini \
+                      -u $SSH_USER \
+                      --private-key=$ANSIBLE_SSH_KEY \
+                      -e "web_image=$IMAGE version=$VERSION" \
+                      ansible/deploy.yml
+              '''
           }
         }
       }
