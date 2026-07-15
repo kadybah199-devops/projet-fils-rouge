@@ -29,18 +29,30 @@ pipeline {
 
     stage('Build & Push Docker image') {
       steps {
-        withCredentials([usernamePassword(credentialsId: 'kady199-dockerhub', usernameVariable: 'DH_USER', passwordVariable: 'DH_PSW')]) {
-          script {
-            // use the known Docker Hub user and the credential for auth
-            def image = "${env.DOCKER_IMAGE_REPO}:${env.VERSION}"
-            sh "echo ${DH_PSW} | docker login -u ${DOCKERHUB_USER} --password-stdin"
-            sh "docker build -t ${image} ."
-            sh "docker push ${image}"
-            env.IMAGE = image
+          withCredentials([
+              usernamePassword(
+                  credentialsId: 'kady199-dockerhub',
+                  usernameVariable: 'DH_USER',
+                  passwordVariable: 'DH_PSW'
+              )
+          ]) {
+              script {
+                  def image = "${env.DOCKER_IMAGE_REPO}:${env.VERSION}"
+
+                  sh '''
+                      echo "$DH_PSW" | docker login \
+                          -u "$DH_USER" \
+                          --password-stdin
+                  '''
+
+                  sh "docker build -t ${image} ."
+                  sh "docker push ${image}"
+
+                  env.IMAGE = image
+              }
           }
-        }
       }
-    }
+   }
 
     stage('Smoke Test') {
       steps {
