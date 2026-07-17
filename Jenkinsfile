@@ -107,6 +107,12 @@ pipeline {
                       ansible/deploy.yml \
                       --ssh-common-args='-o StrictHostKeyChecking=no'
               '''
+              sh '''
+              echo "Utilisateur SSH = $SSH_USER"
+              echo "Fichier clé = $ANSIBLE_SSH_KEY"
+              ls -l $ANSIBLE_SSH_KEY
+              ssh -i $ANSIBLE_SSH_KEY $SSH_USER@192.168.56.12 "hostname"
+              '''
             }
       }
     }
