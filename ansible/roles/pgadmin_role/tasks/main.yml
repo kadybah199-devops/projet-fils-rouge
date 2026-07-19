@@ -4,11 +4,6 @@
     src: docker-compose.yml.j2
     dest: /tmp/pgadmin-docker-compose.yml
 
-- name: Copy compose file to remote host
-  copy:
-    src: /tmp/pgadmin-docker-compose.yml
-    dest: /tmp/pgadmin-docker-compose.yml
-
 - name: Ensure host path exists for PgAdmin data
   file:
     path: "{{ pgadmin_volume_host_path }}"
