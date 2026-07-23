@@ -101,9 +101,7 @@ pipeline {
               sh '''
                   ansible-playbook \
                       -i ansible/inventory.ini \
-                      -u $SSH_USER \
-                      --private-key=$ANSIBLE_SSH_KEY \
-                      -e "web_image=$IMAGE version=$VERSION" \
+                      -e web_image=... \
                       ansible/deploy.yml \
                       --ssh-common-args='-o StrictHostKeyChecking=no'
               '''
