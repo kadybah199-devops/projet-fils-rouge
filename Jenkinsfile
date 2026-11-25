@@ -89,31 +89,27 @@ pipeline {
       }
    }
 
-    stage('Deploy with Ansible') {
-      steps {
-              withCredentials([
-              sshUserPrivateKey(
-                  credentialsId: 'ansible-ssh-key',
-                  keyFileVariable: 'ANSIBLE_SSH_KEY',
-                  usernameVariable: 'SSH_USER'
-              )
-          ]) {
-              sh '''
-                  ansible-playbook \
-                      -i ansible/inventory.ini \
-                      -e web_image=... \
-                      ansible/deploy.yml \
-                      --ssh-common-args='-o StrictHostKeyChecking=no'
-              '''
-              sh '''
-              echo "Utilisateur SSH = $SSH_USER"
-              echo "Fichier clé = $ANSIBLE_SSH_KEY"
-              ls -l $ANSIBLE_SSH_KEY
-              ssh -i $ANSIBLE_SSH_KEY $SSH_USER@192.168.56.12 "hostname"
-              '''
-            }
+  stage('Deploy with Ansible') {
+    steps {
+      withCredentials([
+        sshUserPrivateKey(
+          credentialsId: 'ansible-ssh-key',
+          keyFileVariable: 'ANSIBLE_SSH_KEY',
+          usernameVariable: 'SSH_USER'
+        )
+      ]) {
+        sh '''
+          ansible-playbook \
+            -i ansible/inventory.ini \
+            -u $SSH_USER \
+            --private-key $ANSIBLE_SSH_KEY \
+            -e web_image=kady199/ic-webapp:1.0 \
+            ansible/deploy.yml \
+            --ssh-common-args='-o StrictHostKeyChecking=no'
+        '''
       }
     }
+ }
    
     stage('Tag & Release') {
       when {
