@@ -118,7 +118,7 @@ pipeline {
       steps {
         script {
           // compute new patch version
-          ddef cur = sh(script: '''awk 'NR==3{print $2}' releases.txt''', returnStdout: true).trim()
+          def cur = sh(script: '''awk 'NR==3{print $2}' releases.txt''', returnStdout: true).trim()
           echo "Current version: ${cur}"
           def parts = cur.tokenize('.')
           def major = parts[0].toInteger()
