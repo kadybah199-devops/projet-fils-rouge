@@ -93,7 +93,7 @@ pipeline {
     steps {
       withCredentials([
         sshUserPrivateKey(
-          credentialsId: 'ansible-ssh-key',
+          credentialsId: 'jenkins-deploy-key',
           keyFileVariable: 'ANSIBLE_SSH_KEY',
           usernameVariable: 'SSH_USER'
         )
